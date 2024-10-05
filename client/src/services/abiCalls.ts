@@ -8,16 +8,16 @@ declare global {
 }
 
 const abi = contractABI
-const provider = new ethers.BrowserProvider(window.ethereum);
+export const provider = new ethers.BrowserProvider(window.ethereum);
 await provider.send("eth_requestAccounts", []); // Request user to connect MetaMask
 const signer = await provider.getSigner();
 const votingContract = new ethers.Contract(contractAddress, abi, signer);
 
-async function createVotingSession(
+export const createVotingSession = async (
     title: string,
     candidateNames: string[],
     durationInMinutes: number
-) {
+) => {
     try {
         const tx = await votingContract.createVotingSession(
             title,
@@ -31,7 +31,7 @@ async function createVotingSession(
     }
 }
 
-async function castVote(sessionId: number, candidateIndex: number) {
+export const castVote = async (sessionId: number, candidateIndex: number) => {
     try {
         const tx = await votingContract.vote(sessionId, candidateIndex);
         const receipt = await tx.wait(); // Wait for transaction confirmation
@@ -41,7 +41,7 @@ async function castVote(sessionId: number, candidateIndex: number) {
     }
 }
 
-async function getResults(sessionId: number) {
+export const getResults = async (sessionId: number) => {
     try {
         const results = await votingContract.getResults(sessionId);
         console.log("Voting Results:", results);
@@ -51,7 +51,7 @@ async function getResults(sessionId: number) {
     }
 }
 
-async function isVotingActive(sessionId: number) {
+export const isVotingActive = async (sessionId: number) => {
     try {
         const active = await votingContract.isVotingActive(sessionId);
         console.log("Is voting active:", active);
@@ -61,7 +61,7 @@ async function isVotingActive(sessionId: number) {
     }
 }
 
-async function getRemainingTime(sessionId: number) {
+export const getRemainingTime = async (sessionId: number) => {
     try {
         const remainingTime = await votingContract.getRemainingTime(sessionId);
         console.log("Remaining time:", remainingTime);

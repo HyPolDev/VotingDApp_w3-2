@@ -6,7 +6,7 @@ import { FaLocationArrow } from 'react-icons/fa6'
 
 const Hero = () => {
     return (
-        <div className='pb-20 pt-36'>
+        <div className='pb-20 pt-36 h-full'>
             <div>
                 <Spotlight className='-top-40 -left-10 md:-left-32 md:-top-20 h-screen' fill='white' />
                 <Spotlight className='top-10 left-full h-[80vh] w-[50vw]' fill='purple' />
@@ -21,9 +21,8 @@ const Hero = () => {
                         Pol's template subtitle
                     </p>
                     <a href="#" className='flex justify-center'>
-                        <Button className="p-10" fill="Pol's template button" icon={<FaLocationArrow />} />
+                        <Button className="p-10 transform hover:-translate-y-1 transition duration-400" fill="Pol's template button" icon={<FaLocationArrow />} />
                     </a>
-                    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
                 </div>
             </div>
         </div>
