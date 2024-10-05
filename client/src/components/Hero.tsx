@@ -23,6 +23,7 @@ const Hero = () => {
                     <a href="#" className='flex justify-center'>
                         <Button className="p-10" fill="Pol's template button" icon={<FaLocationArrow />} />
                     </a>
+                    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
                 </div>
             </div>
         </div>
