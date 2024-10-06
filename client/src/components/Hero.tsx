@@ -1,8 +1,7 @@
-import Button from './ui/Button'
 import { GenerativeText } from './ui/GenerativeText'
 import { GridBackground } from './ui/GridBackground'
 import { Spotlight } from './ui/Spotlight'
-import { FaLocationArrow } from 'react-icons/fa6'
+import ConnectWalletButton from './ui/WalletButton'
 
 const Hero = () => {
     return (
@@ -21,7 +20,7 @@ const Hero = () => {
                         Pol's template subtitle
                     </p>
                     <a href="#" className='flex justify-center'>
-                        <Button className="p-10 transform hover:-translate-y-1 transition duration-400" fill="Pol's template button" icon={<FaLocationArrow />} />
+                        <ConnectWalletButton />
                     </a>
                 </div>
             </div>
