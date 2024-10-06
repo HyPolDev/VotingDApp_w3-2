@@ -26,6 +26,7 @@ export const createVotingSession = async (
         );
         const receipt = await tx.wait(); // Wait for transaction confirmation
         console.log("Voting session created:", receipt);
+        return receipt
     } catch (error) {
         console.error("Error creating voting session:", error);
     }
