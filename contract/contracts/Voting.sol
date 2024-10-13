@@ -89,6 +89,14 @@ contract Voting {
         emit VoteCast(sessionId, candidateIndex, msg.sender);
     }
 
+    // Function to get the title of a voting session by its ID
+    function getVotingSessionTitle(
+        uint256 sessionId
+    ) public view returns (string memory) {
+        require(sessionId < votingSessions.length, "Invalid session ID.");
+        return votingSessions[sessionId].title;
+    }
+
     // Get all candidates and their votes for a specific session after the voting ends
     function getResults(
         uint256 sessionId
