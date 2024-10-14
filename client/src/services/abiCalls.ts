@@ -45,7 +45,6 @@ export const castVote = async (sessionId: number, candidateIndex: number) => {
 export const getResults = async (sessionId: number) => {
     try {
         const results = await votingContract.getResults(sessionId);
-        console.log("Voting Results:", results);
         return results;
     } catch (error) {
         console.error("Error fetching voting results:", error);
@@ -55,7 +54,6 @@ export const getResults = async (sessionId: number) => {
 export const isVotingActive = async (sessionId: number) => {
     try {
         const active = await votingContract.isVotingActive(sessionId);
-        console.log("Is voting active:", active);
         return active;
     } catch (error) {
         console.error("Error checking voting session status:", error);
@@ -65,10 +63,18 @@ export const isVotingActive = async (sessionId: number) => {
 export const getRemainingTime = async (sessionId: number) => {
     try {
         const remainingTime = await votingContract.getRemainingTime(sessionId);
-        console.log("Remaining time:", remainingTime);
         return remainingTime;
     } catch (error) {
         console.error("Error fetching remaining time:", error);
+    }
+}
+
+export const getTitle = async (sessionId: number) => {
+    try {
+        const sessionTitle = await votingContract.getVotingSessionTitle(sessionId)
+        return sessionTitle
+    } catch (error) {
+        console.error("Unable to get session", error)
     }
 }
 

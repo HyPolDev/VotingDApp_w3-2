@@ -1,4 +1,4 @@
 import abi from './contract.json'
 
 export const contractABI: any = abi.abi
-export const contractAddress: string = "0x5F587d36219cB00080A18B5671A3F39A0035dCf9"
+export const contractAddress: string = "0xcAE5dCA095fF086DBdD689F454C4164865942b03"
