@@ -2,17 +2,23 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import Button from './Button'
 import { useRef, useState } from "react";
 import { getRemainingTime, getResults, getTitle, isVotingActive } from "../../services/abiCalls";
+import { useDispatch, useSelector } from "react-redux";
+import { addVotingData } from '../../store/votingSlice.ts'
 
 const SearchBar = () => {
     const [sessionId, setSessionId] = useState("")
-
+    const data = useSelector((state: any) => state.voting)
+    const dispatch = useDispatch();
+    const saveVotingData = (sessionId: string, data: any) => {
+        dispatch(addVotingData({ sessionId, ...data })); // Dispatch the action to add voting data
+    }
     const inputRef: any = useRef(null)
 
     const searchSession = async () => {
         let id = parseInt(sessionId)
         console.log("Looking for the session...")
 
-        const voteTimeLeft: number = Number(await getRemainingTime(id));  // Convert BigInt to Number
+        const voteTimeLeft = Number(await getRemainingTime(id));  // Convert BigInt to Number
         const voteResult = await getResults(id);
         const voteStatus = await isVotingActive(id);
         const votingTitle = await getTitle(id);
@@ -28,8 +34,10 @@ const SearchBar = () => {
             "Title": votingTitle,
             "id": sessionId
         };
-        console.log("Session Data", VotingData)
-        localStorage.setItem(sessionId, JSON.stringify(VotingData));
+
+        console.log(data);
+
+        saveVotingData(sessionId, VotingData)
         inputRef.current.value = "";
     }
 

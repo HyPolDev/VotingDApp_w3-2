@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract Voting {
+contract VotingContract {
     struct Candidate {
         string name;
         uint256 voteCount;
@@ -97,14 +97,12 @@ contract Voting {
         return votingSessions[sessionId].title;
     }
 
-    // Get all candidates and their votes for a specific session after the voting ends
+    // Get current results of candidates during an active voting session
     function getResults(
         uint256 sessionId
     ) public view returns (Candidate[] memory) {
-        require(
-            block.timestamp >= votingSessions[sessionId].votingEnd,
-            "Voting session is still active."
-        );
+        require(sessionId < votingSessions.length, "Invalid session ID.");
+
         return votingSessions[sessionId].candidates;
     }
 
