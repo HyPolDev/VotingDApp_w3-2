@@ -19,7 +19,7 @@ const ConnectWalletButton: React.FC = () => {
             }
 
             const provider = new ethers.BrowserProvider(window.ethereum);
-            await provider.send("eth_requestAccounts", []); // Request account access
+            await provider.send("eth_requestAccounts", []); // Request account access once again, 
 
             const signer = await provider.getSigner();
             const address = await signer.getAddress();

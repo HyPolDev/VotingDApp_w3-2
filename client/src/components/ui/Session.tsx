@@ -44,10 +44,18 @@ const Session = () => {
             {objData && objData.votingData.length > 0 ? (
                 <Slider {...settings}>
                     {objData.votingData.map((elem: any, index: number) => (
-                        <div key={index}>
+                        <div key={index * 2 - 1}>
                             <VotingCard children={
-                                <div className='flex h-80'>
-                                    {elem.Title}
+                                <div className='flex h-80 w-full space-x-36'>
+                                    <div>
+                                        <h1 className='font-extrabold text-4xl pb-12'>{elem.Title}</h1>
+                                        {elem.Results.map((e: any, index: number) => (
+                                            <div key={index * 2} >
+                                                <h1>{e.name}</h1><br />
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <h1 className='text-red-700 font-bold top-4'>{elem.TimeLeft} seconds remaining</h1>
                                 </div>
                             } className='px-20 mb-32 rounded-xl' />
                         </div>
