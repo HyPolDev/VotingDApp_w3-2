@@ -1,3 +1,4 @@
+import ElectoralRoom from "./components/ElectoralRoom.tsx"
 import Hero from "./components/Hero"
 import FloatingNav from "./components/ui/Navbar.tsx"
 function App() {
@@ -7,6 +8,7 @@ function App() {
         <div className="max-w-7xl w-full ">
           <FloatingNav navItems={[{ name: "pol", link: "#" }]} />
           <Hero />
+          <ElectoralRoom />
         </div>
       </main>
     </>

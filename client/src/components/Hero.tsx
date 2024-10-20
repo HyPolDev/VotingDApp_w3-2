@@ -1,12 +1,11 @@
-import Button from './ui/Button'
 import { GenerativeText } from './ui/GenerativeText'
 import { GridBackground } from './ui/GridBackground'
 import { Spotlight } from './ui/Spotlight'
-import { FaLocationArrow } from 'react-icons/fa6'
+import ConnectWalletButton from './ui/WalletButton'
 
 const Hero = () => {
     return (
-        <div className='pb-20 pt-36'>
+        <div className='pb-20 pt-36 h-full'>
             <div>
                 <Spotlight className='-top-40 -left-10 md:-left-32 md:-top-20 h-screen' fill='white' />
                 <Spotlight className='top-10 left-full h-[80vh] w-[50vw]' fill='purple' />
@@ -21,7 +20,7 @@ const Hero = () => {
                         Pol's template subtitle
                     </p>
                     <a href="#" className='flex justify-center'>
-                        <Button className="p-10" fill="Pol's template button" icon={<FaLocationArrow />} />
+                        <ConnectWalletButton />
                     </a>
                 </div>
             </div>
