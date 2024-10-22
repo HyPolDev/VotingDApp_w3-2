@@ -9,6 +9,16 @@ declare global {
     }
 }
 
+export const handleSelectChange = (option: string | undefined, sessionId: string) => {
+    console.log(option, sessionId)
+    if (typeof (option) == "string") {
+        localStorage.setItem(`Session number ${sessionId}`, option)
+        console.log("Selected", option)
+    }
+    console.log("Stored", localStorage.getItem(`Session number ${sessionId}`))
+    return null
+}
+
 export const getProvider = async () => {
     if (!window.ethereum) {
         throw new Error("MetaMask is not installed!");
