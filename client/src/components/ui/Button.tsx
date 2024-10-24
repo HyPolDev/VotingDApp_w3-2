@@ -5,7 +5,7 @@ type ButtonProps = {
     fill?: string;
     icon?: React.ReactNode;
     position?: string;
-    handleClick?: () => void;
+    handleClick?: any;
 };
 
 const Button = ({ className, fill, icon, position, handleClick }: ButtonProps) => {

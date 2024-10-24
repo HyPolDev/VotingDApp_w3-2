@@ -6,11 +6,41 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Select from 'react-select';
 import { handleSelectChange } from '../../services/abiCalls';
+import { MultiStepLoader } from './Loader/multiStepLoader';
+import Button from './Button';
+
+const loadingStates = [
+    {
+        text: "Connecting to the blockchain...",
+    },
+    {
+        text: "Verifying voting session...",
+    },
+    {
+        text: "Preparing your vote...",
+    },
+    {
+        text: "Signing transaction with wallet...",
+    },
+    {
+        text: "Broadcasting vote to the network...",
+    },
+    {
+        text: "Waiting for transaction confirmation...",
+    },
+    {
+        text: "Vote successfully submitted!",
+    },
+    {
+        text: "Updating voting results...",
+    },
+];
 
 const Session = () => {
     const objData = useSelector((state: any) => state.voting); // Get voting data from Redux
 
-    // State to store casted votes per session
+    const [loading, setLoading] = useState(false);
+
     const [castedVotes, setCastedVotes] = useState<{ [key: string]: string }>({});
 
     useEffect(() => {
@@ -25,6 +55,11 @@ const Session = () => {
         }));
         handleSelectChange(selectedCandidate, sessionId);
     };
+
+    const submitVote = () => {
+        setLoading(true)
+        setTimeout(() => setLoading(false), (Math.random() * 10000) + 5000)
+    }
 
     var settings = {
         className: "slider center",
@@ -88,6 +123,9 @@ const Session = () => {
                                             />
                                         </div>
                                         <h1 className='text-red-700 font-bold top-4'>{elem.TimeLeft} seconds remaining</h1>
+                                        <div className='h-12 w-20 z-10 -mt-2 -mb-2' onClick={submitVote}>
+                                            <Button className='' fill='Cast vote' />
+                                        </div>
                                     </div>
                                 </VotingCard>
                             </div>
@@ -110,6 +148,7 @@ const Session = () => {
                     } className='w-full px-20 mb-32 rounded-xl' />
                 </div>
             )}
+            <MultiStepLoader loadingStates={loadingStates} loading={loading} duration={2000} />
         </div>
     );
 }
