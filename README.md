@@ -25,3 +25,4 @@ A Decentralized app using a ethereum smart contract deployed on the holesky netw
 ## 🐛 Bugs  
 
 No bugs found by the developers in the active functionalities. If you get to find one, please reach out
+
