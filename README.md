@@ -1,4 +1,4 @@
-## Decentralized Voting System
+### OpenPoll
 
 A Decentralized app using a ethereum smart contract deployed on the holesky network to create voting sessions instances with an expiration date and vote for candidates, for now it relies in the in built private ethereum data storage but I would like to further upgrade it to use ZKp to secure privacy
 
