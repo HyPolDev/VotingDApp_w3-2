@@ -105,3 +105,14 @@ export const getTitle = async (sessionId: number) => {
     }
 }
 
+export const hasVoted = async (sessionId: number, userAddress: string) => {
+    try {
+        const votingContract = await getVotingContract()
+        const hasVoted = await votingContract.hasVoted(sessionId, userAddress);
+        return hasVoted
+    } catch (error) {
+        console.error(error)
+    }
+
+}
+

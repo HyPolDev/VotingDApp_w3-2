@@ -5,8 +5,6 @@ import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-
-// Assuming you have a MultiStepLoader component
 import { MultiStepLoader } from './Loader/multiStepLoader'
 
 const loadingStates = [
