@@ -4,6 +4,16 @@ import { Spotlight } from './ui/Spotlight'
 import ConnectWalletButton from './ui/WalletButton'
 
 const Hero = () => {
+
+    const scrollToElectoralRoom = () => {
+        let e = document.getElementById("electoral-room");
+        e?.scrollIntoView({
+            block: 'start',
+            behavior: 'smooth',
+            inline: 'center'
+        });
+    }
+
     return (
         <div className='pb-20 pt-36 h-full'>
             <div>
@@ -14,12 +24,12 @@ const Hero = () => {
             <GridBackground />
             <div className='felx justify-center relative my-20 z-10'>
                 <div className='felx flex-col items-center justify-center'>
-                    <p className='uppercase tracking-widest text-xs text-center text-blue-100'>Pol's template description</p>
-                    <GenerativeText words="Pol's template title" highlightedWords={[2]} className='text-center text-[40px] md:text-5xl lg:text-6xl' />
+                    <p className='uppercase tracking-widest text-xs text-center text-blue-100'>Democracy whas never this secure</p>
+                    <GenerativeText words="Wellcome to OpenPoll" highlightedWords={[2]} className='text-center text-[40px] md:text-5xl lg:text-6xl' />
                     <p className="text-center md:tracking-wider mb-4 text-sm md:text-lg lg:text-2xl">
-                        Pol's template subtitle
+                        A decentralized solution for voting protocols
                     </p>
-                    <a href="#" className='flex justify-center'>
+                    <a onClick={() => scrollToElectoralRoom()} className='flex justify-center'>
                         <ConnectWalletButton />
                     </a>
                 </div>

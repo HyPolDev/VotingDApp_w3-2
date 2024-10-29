@@ -48,7 +48,7 @@ const ConnectWalletButton: React.FC = () => {
                     <Button className="p-10 transform hover:-translate-y-1 transition duration-400" fill="Connect to your wallet to start" icon={<FaLocationArrow />} />
                 </div>
             )}
-            {error && <p className="text-red-500">{error}</p>}
+            {error && <p className="text-red-500 text-center">{error}</p>}
         </div>
     );
 };

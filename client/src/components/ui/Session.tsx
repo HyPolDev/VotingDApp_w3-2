@@ -89,7 +89,7 @@ const Session = () => {
     };
 
     return (
-        <div className="mt-20">
+        <div className="mt-20" >
             {objData && objData.votingData.length > 0 ? (
                 <Slider {...settings}>
                     {objData.votingData.map((elem: any, index: number) => {
