@@ -68,6 +68,14 @@ contract VotingContract {
         );
     }
 
+    function hasVoted(
+        uint256 sessionId,
+        address voter
+    ) public view returns (bool) {
+        VotingSession storage session = votingSessions[sessionId];
+        return session.voters[voter];
+    }
+
     // Vote for a candidate in a specific voting session
     function vote(
         uint256 sessionId,
