@@ -4,7 +4,7 @@ import { VotingForm } from './ui/voting_form/Form'
 
 const ElectoralRoom = () => {
     return (
-        <section className='mt-32 flex flex-col'>
+        <section className='mt-32 flex flex-col' id='electoral-room'>
             <SearchBar />
             <Session />
             <VotingForm />

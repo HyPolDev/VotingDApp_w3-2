@@ -11,14 +11,16 @@ interface VotingData {
 // Define a type for the initial state
 interface VotingState {
     votingData: VotingData[];
+    account: string | null; // New field for account information
 }
 
 // Create the initial state
 const initialState: VotingState = {
     votingData: [],
+    account: null,
 };
 
-// Create a slice for managing voting data
+// Create a slice for managing voting data and account information
 const votingSlice = createSlice({
     name: 'voting',
     initialState,
@@ -32,9 +34,15 @@ const votingSlice = createSlice({
         clearVotingData: (state) => {
             state.votingData = []; // Clear the voting data
         },
+        setAccount: (state, action: PayloadAction<string>) => {
+            state.account = action.payload; // Set the account
+        },
+        clearAccount: (state) => {
+            state.account = null; // Clear the account
+        },
     },
 });
 
 // Export actions and reducer
-export const { setVotingData, addVotingData, clearVotingData } = votingSlice.actions;
+export const { setVotingData, addVotingData, clearVotingData, setAccount, clearAccount } = votingSlice.actions;
 export default votingSlice.reducer;
