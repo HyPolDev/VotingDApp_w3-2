@@ -113,6 +113,4 @@ export const hasVoted = async (sessionId: number, userAddress: string) => {
     } catch (error) {
         console.error(error)
     }
-
 }
-

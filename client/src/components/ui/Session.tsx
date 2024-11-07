@@ -22,6 +22,8 @@ export default function Session() {
     const objData = useSelector((state: any) => state.voting)
     const [loading, setLoading] = useState(false)
     const [castedVotes, setCastedVotes] = useState<{ [key: string]: string }>({})
+    const [hasUserVoted, setHasUserVoted] = useState<boolean>(false)
+
 
     useEffect(() => {
         console.log("Current Voting Data:", objData, objData.votingData.length)
@@ -39,6 +41,7 @@ export default function Session() {
     const submitVote = () => {
         setLoading(true)
         setTimeout(() => setLoading(false), (Math.random() * 10000) + 5000)
+        setHasUserVoted(true)
     }
 
     const CustomPrevArrow = (props: any) => (
@@ -95,28 +98,35 @@ export default function Session() {
                                             {elem.TimeLeft} seconds remaining
                                         </div>
                                         <div className="space-y-4 w-60">
-                                            {elem.Results.map((candidate: any, i: number) => (
-                                                <div key={i} className="flex items-center justify-between">
-                                                    <span className="text-lg text-white w-96">{candidate.name}</span>
-                                                    <div className="flex items-center gap-2 flex-1 mx-4">
-                                                        <div className="bg-gray-700 rounded-full h-2.5  w-20">
-                                                            <div
-                                                                className="bg-blue-600 h-2.5 rounded-full"
-                                                                style={{ width: `${(candidate.voteCount / elem.Results.reduce((sum: number, c: any) => sum + parseInt(c.voteCount), 0)) * 100}%` }}
-                                                            ></div>
+                                            {elem.Results.map((candidate: any, i: number) => {
+                                                const totalVotes = elem.Results.reduce((sum: number, c: any) => sum + parseInt(c.voteCount), 0);
+                                                const userVoteAdjustment = castedVotes[elem.sessionId] === candidate.name && hasUserVoted ? 1 : 0;
+                                                const candidateWidth = ((candidate.voteCount + userVoteAdjustment) / totalVotes) * 100;
+
+                                                return (
+                                                    <div key={i} className="flex items-center justify-between">
+                                                        <span className="text-lg text-white w-96">{candidate.name}</span>
+                                                        <div className="flex items-center gap-2 flex-1 mx-4">
+                                                            <div className="bg-gray-700 rounded-full h-2.5 w-20">
+                                                                <div
+                                                                    className="bg-blue-600 h-2.5 rounded-full"
+                                                                    style={{ width: `${candidateWidth}%` }}
+                                                                ></div>
+                                                            </div>
+                                                            <span className="text-sm w-12 text-right text-gray-300">
+                                                                {((candidate.voteCount / totalVotes) * 100).toFixed(1)}%
+                                                            </span>
                                                         </div>
-                                                        <span className="text-sm w-12 text-right text-gray-300">
-                                                            {((candidate.voteCount / elem.Results.reduce((sum: number, c: any) => sum + parseInt(c.voteCount), 0)) * 100).toFixed(1)}%
+                                                        <span className="text-lg font-semibold w-12 text-right text-white">
+                                                            {parseInt(candidate.voteCount) + userVoteAdjustment}
                                                         </span>
                                                     </div>
-                                                    <span className="text-lg font-semibold w-12 text-right text-white">
-                                                        {parseInt(candidate.voteCount) + (castedVotes[elem.sessionId] === candidate.name ? 1 : 0)}
-                                                    </span>
-                                                </div>
-                                            ))}
+                                                );
+                                            })}
+
                                         </div>
                                     </div>
-                                    {elem.TimeLeft > 0 ? (
+                                    {elem.TimeLeft > 0 && !hasUserVoted ? (
                                         <div className="px-6 py-4 flex flex-col sm:flex-row items-center gap-4">
                                             <select
                                                 className="w-full sm:w-48 px-4 py-2 rounded-md bg-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"

@@ -1,14 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import Button from "./Button";
 import { FaLocationArrow } from "react-icons/fa6";
+import { setAccount } from "../../store/votingSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 
 const HOLESKY_CHAIN_ID = 17000n;
 
 const ConnectWalletButton: React.FC = () => {
-    const [account, setAccount] = useState<string | null>(null);
+    const [account, setAccountState] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const dispatch = useDispatch()
+    const objData = useSelector((state: any) => state.voting)
+
+    useEffect(() => {
+        setAccountState(objData.account)
+    }, [objData])
+
+
 
     // Function to request account access and connect to Holesky
     const connectWallet = async () => {
@@ -31,7 +41,8 @@ const ConnectWalletButton: React.FC = () => {
                 return;
             }
 
-            setAccount(address);
+            setAccountState(address);
+            dispatch(setAccount(address));
             setError(null); // Clear any previous errors
         } catch (err) {
             console.error("Error connecting wallet:", err);
