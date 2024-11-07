@@ -3,6 +3,33 @@ import { contractABI, contractAddress } from "../utils/constants";
 
 const abi = contractABI;
 
+const eventSignature = "VotingSessionCreated(uint256,string,address,uint256)";
+const eventTopic = ethers.id(eventSignature);
+
+const getSessionIdFromReceipt = async (receipt: any) => {
+    const logs = receipt.logs;
+
+    for (let log of logs) {
+        // Check if this log matches the VotingSessionCreated event
+        if (log.topics[0] === eventTopic) {
+            // Decode the log data
+            const decodedData = ethers.AbiCoder.defaultAbiCoder().decode(
+                ["uint256", "string", "address", "uint256"],
+                log.data
+            );
+
+            const sessionId = decodedData[0].toString();
+            const title = decodedData[1];
+            const creator = decodedData[2];
+            const votingEnd = decodedData[3].toString();
+
+            return console.log({ sessionId, title, creator, votingEnd });
+        }
+    }
+
+    throw new Error("Voting session creation log not found in receipt.");
+}
+
 declare global {
     interface Window {
         ethereum: any;
@@ -46,7 +73,9 @@ export const createVotingSession = async (
             durationInMinutes
         );
         const receipt = await tx.wait(); // Wait for transaction confirmation
-        console.log("Voting session created:", receipt);
+        getSessionIdFromReceipt(receipt)
+        console.log("Voting session created");
+
         return receipt;
     } catch (error) {
         console.error("Error creating voting session:", error);

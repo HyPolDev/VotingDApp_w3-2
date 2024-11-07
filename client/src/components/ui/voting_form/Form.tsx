@@ -16,8 +16,7 @@ export const VotingForm = () => {
         e.preventDefault();
         const candidateNames: string[] = candidates.split(",")
         console.log("Form submitted");
-        const receipt = await createVotingSession(title, candidateNames, parseInt(minutes))
-        console.log(receipt)
+        await createVotingSession(title, candidateNames, parseInt(minutes))
     };
 
     return (
