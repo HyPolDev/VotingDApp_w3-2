@@ -10,13 +10,15 @@ export const VotingForm = () => {
     const [title, setTitle] = useState("")
     const [minutes, setMinutes] = useState("")
     const [candidates, setCandidates] = useState("")
+    const [sessionId, setSessionId] = useState<null>()
 
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const candidateNames: string[] = candidates.split(",")
         console.log("Form submitted");
-        await createVotingSession(title, candidateNames, parseInt(minutes))
+        const receipt = await createVotingSession(title, candidateNames, parseInt(minutes))
+        setSessionId(receipt.sessionId)
     };
 
     return (
