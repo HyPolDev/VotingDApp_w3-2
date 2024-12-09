@@ -41,8 +41,8 @@ const ConnectWalletButton: React.FC = () => {
                 return;
             }
 
-            setAccountState(address);
-            dispatch(setAccount(address));
+            setAccountState(address); // from a useState
+            dispatch(setAccount(address)); //from redux
             setError(null); // Clear any previous errors
         } catch (err) {
             console.error("Error connecting wallet:", err);

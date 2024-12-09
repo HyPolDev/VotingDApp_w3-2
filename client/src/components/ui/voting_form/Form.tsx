@@ -4,20 +4,45 @@ import { Label } from "./Label";
 import { Input } from "./Input";
 import { cn } from "../../../../lib/utils";
 import { createVotingSession } from "../../../services/abiCalls";
-
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 
 export const VotingForm = () => {
     const [title, setTitle] = useState("")
     const [minutes, setMinutes] = useState("")
     const [candidates, setCandidates] = useState("")
+    const [sessionId, setSessionId] = useState<null>()
+
+    const notify = (type: 'info' | 'success' | 'warning' | 'error', message: string, title?: string, duration: number = 10000) => {
+        switch (type) {
+            case 'info':
+                NotificationManager.info(message, title, duration);
+                break;
+            case 'success':
+                NotificationManager.success(message, title, duration);
+                break;
+            case 'warning':
+                NotificationManager.warning(message, title, duration);
+                break;
+            case 'error':
+                NotificationManager.error(message, title, duration);
+                break;
+            default:
+                break;
+        }
+    };
 
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const candidateNames: string[] = candidates.split(",")
         console.log("Form submitted");
-        const receipt = await createVotingSession(title, candidateNames, parseInt(minutes))
-        console.log(receipt)
+        try {
+            const receipt = await createVotingSession(title, candidateNames, parseInt(minutes))
+            setSessionId(receipt.sessionId)
+            notify('success', 'This is a success message!', 'Success');
+        } catch (error) {
+            notify('error', 'There was an issue creating the session', 'Error', 5000);
+        }
     };
 
     return (
@@ -94,6 +119,7 @@ export const VotingForm = () => {
 
                 </div>
             </div>
+            <NotificationContainer />
         </div>
     );
 }
