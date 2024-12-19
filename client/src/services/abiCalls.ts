@@ -23,7 +23,7 @@ const getSessionIdFromReceipt = async (receipt: any) => {
             const creator = decodedData[2];
             const votingEnd = decodedData[3].toString();
 
-            return console.log({ sessionId, title, creator, votingEnd });
+            return { sessionId, title, creator, votingEnd };
         }
     }
 
@@ -73,10 +73,10 @@ export const createVotingSession = async (
             durationInMinutes
         );
         const receipt = await tx.wait(); // Wait for transaction confirmation
-        getSessionIdFromReceipt(receipt)
+        const receiptDecoded = await getSessionIdFromReceipt(receipt)
         console.log("Voting session created");
 
-        return receipt;
+        return receiptDecoded;
     } catch (error) {
         console.error("Error creating voting session:", error);
     }
