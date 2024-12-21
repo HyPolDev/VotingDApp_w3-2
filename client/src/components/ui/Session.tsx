@@ -101,7 +101,8 @@ export default function Session() {
                                             {elem.Results.map((candidate: any, i: number) => {
                                                 const totalVotes = elem.Results.reduce((sum: number, c: any) => sum + parseInt(c.voteCount), 0);
                                                 const userVoteAdjustment = castedVotes[elem.sessionId] === candidate.name && hasUserVoted ? 1 : 0;
-                                                const candidateWidth = ((candidate.voteCount + userVoteAdjustment) / totalVotes) * 100;
+                                                const candidateWidth = ((candidate.voteCount + userVoteAdjustment) / (hasUserVoted ? totalVotes + 1 : totalVotes)) * 100;
+                                                console.log("totalVotes", totalVotes, "userVoteAdjustment", userVoteAdjustment, "cadidateWidth", candidateWidth)
 
                                                 return (
                                                     <div key={i} className="flex items-center justify-between">
@@ -114,7 +115,7 @@ export default function Session() {
                                                                 ></div>
                                                             </div>
                                                             <span className="text-sm w-12 text-right text-gray-300">
-                                                                {((candidate.voteCount / totalVotes) * 100).toFixed(1)}%
+                                                                {((candidate.voteCount + userVoteAdjustment / (hasUserVoted ? totalVotes + 1 : totalVotes)) * 100).toFixed(1)}%
                                                             </span>
                                                         </div>
                                                         <span className="text-lg font-semibold w-12 text-right text-white">
